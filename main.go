@@ -167,7 +167,10 @@ func main() {
 		productID := c.PostForm("productID")
 		money := c.PostForm("money")
 		status := c.PostForm("status") // 上架或下架
-
+                 _, err1 := db.Exec("insert into new-products (warehouseID,productID,money) values (?,?,?)", warehouseID, productID, money)
+		if err1 != nil {
+			fmt.Println(err1)
+		}
 		// 更新数据库中货物的状态
 		_, err := db.Exec("update new-products set status = ? where warehouse_id = ? and product_id = ? and money =?", status, warehouseID, productID, money)
 		if err != nil {
